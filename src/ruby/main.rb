@@ -55,7 +55,7 @@ class Main < Sinatra::Base
     end
 
     get '/' do
-        STDERR.puts request.env.to_h.to_yaml
+        STDERR.puts request.env.to_h.to_s
         STDERR.puts '-' * 30
         STDERR.puts request.body.read
         STDERR.puts '-' * 30
