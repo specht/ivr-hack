@@ -66,7 +66,7 @@ class Main < Sinatra::Base
         STDERR.puts form
         decoded_form = URI.decode_www_form(form)
         STDERR.puts decoded_form
-        data = decoded_form[0][0]
+        data = Hash[decoded_form]
         STDERR.puts data.to_yaml
         return
     end
