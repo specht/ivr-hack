@@ -60,10 +60,10 @@ class Main < Sinatra::Base
 
 
     post '*' do
-        STDERR.puts request.env.to_h.to_s
-        STDERR.puts '-' * 30
-        STDERR.puts request.body.read
-        STDERR.puts '-' * 30
+        STDERR.puts request.path
+        decoded_form = URI.decode_www_form(request.body.read)
+        data = decoded_form[0][0]
+        STDERR.puts data.to_yaml
         return
     end
 
