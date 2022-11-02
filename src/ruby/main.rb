@@ -55,7 +55,7 @@ class Main < Sinatra::Base
     end
 
     before '*' do
-        STDERR.puts "BEFORE: #{request.method} #{request.path}"
+        STDERR.puts "BEFORE: #{request.path}"
     end
 
 
