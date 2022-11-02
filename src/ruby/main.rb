@@ -1,7 +1,6 @@
 require 'sinatra/base'
 require 'set'
 require 'digest/sha1'
-require 'htmlentities'
 
 DEVELOPMENT = ENV['DEVELOPMENT']
 
