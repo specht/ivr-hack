@@ -55,19 +55,29 @@ class Main < Sinatra::Base
         end
     end
 
-    before '*' do
-        STDERR.puts "BEFORE: #{request.path}"
-    end
 
-
-    post '*' do
-        STDERR.puts request.path
+    post '/' do
         form = request.body.read
-        STDERR.puts form
         decoded_form = URI.decode_www_form(form)
-        STDERR.puts decoded_form
         data = Hash[decoded_form]
         STDERR.puts data.to_yaml
+        if data['event'] == 'newCall'
+            STDERR.puts "NEW CALL!"
+            xml = StringIO.open do |io|
+                io.puts "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                io.puts "<Response>"
+                io.puts "<Gather maxDigitis=\"1\" timeout=\"5000\" onData=\"https://ivr.hackschule.de\">"
+                io.puts "<Play>"
+                io.puts "<Url>https://ivr-assets.nhcham.org/1667403886950.wav</Url>"
+                io.puts "</Play>"
+                io.puts "</Gather>"
+                io.puts "</Response>"
+                io.string
+            end
+            response.headers['Content-Type'] = 'application/xml'
+            response.headers['Content-Length'] = xml.size
+            response.body = xml
+        end
         return
     end
 
