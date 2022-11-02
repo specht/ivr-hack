@@ -55,13 +55,14 @@ class Main < Sinatra::Base
         end
     end
 
-
     post '/' do
         form = request.body.read
         decoded_form = URI.decode_www_form(form)
         data = Hash[decoded_form]
         STDERR.puts data.to_yaml
-        if data['event'] == 'newCall'
+        call_id = data['callId']
+        event = data['event']
+        if event == 'newCall'
             STDERR.puts "NEW CALL!"
             xml = StringIO.open do |io|
                 io.puts "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
