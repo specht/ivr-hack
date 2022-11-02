@@ -66,7 +66,7 @@ class Main < Sinatra::Base
             xml = StringIO.open do |io|
                 io.puts "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
                 io.puts "<Response>"
-                io.puts "<Gather maxDigitis=\"1\" timeout=\"5000\" onData=\"https://ivr.hackschule.de\">"
+                io.puts "<Gather maxDigits=\"1\" timeout=\"5000\" onData=\"https://ivr.hackschule.de\">"
                 io.puts "<Play>"
                 io.puts "<Url>https://ivr-assets.nhcham.org/1667403886950.wav</Url>"
                 io.puts "</Play>"
@@ -75,7 +75,7 @@ class Main < Sinatra::Base
                 io.string
             end
             response.headers['Content-Type'] = 'application/xml'
-            response.headers['Content-Length'] = xml.size
+            response.headers['Content-Length'] = "#{xml.size}"
             response.body = xml
         end
         return
